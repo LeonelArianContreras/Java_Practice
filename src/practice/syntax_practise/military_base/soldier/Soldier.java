@@ -1,7 +1,8 @@
 package practice.syntax_practise.military_base.soldier;
 
 import practice.syntax_practise.military_base.weapon.Weapon;
-import java.util.stream.DoubleStream;
+
+import java.util.Comparator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class Soldier {
     }
 
     public boolean canAttackTo(Soldier soldier) {
-        return rank.getRank() >= soldier.rank.getRank() || this.totalDamage() >= soldier.totalDamage();
+        return (rank.getRank() >= soldier.rank.getRank() || this.totalDamage() >= soldier.totalDamage()) && !this.withAmmoWeapons().isEmpty();
     }
 
     public void receiveAttack(Soldier soldier) {
@@ -74,19 +75,27 @@ public class Soldier {
     }
 
     public double totalDamage() {
-        return this.weaponsDamage().sum();
+        return weapons.stream().mapToDouble(Weapon :: getTotalDamage).sum();
+    }
+
+    public Weapon bestWeapon() {
+        return this.withAmmoWeapons().stream().max(Comparator.comparingDouble(Weapon :: getTotalDamage)).orElse(null);
     }
 
     public double maxDamage() {
-        return this.weaponsDamage().max().orElse(0);
-    }
-
-    public DoubleStream weaponsDamage() {
-        return weapons.stream().mapToDouble(Weapon :: getDamage);
+        return this.bestWeapon().getTotalDamage();
     }
 
     public void verifyRankUp(int honorStars) {
         rank = rank.rankUp(honorStars / 5); // If soldier has less than 5, the parameter will be 0
+    }
+
+    public List<Weapon> withAmmoWeapons() {
+        return weapons.stream().filter(Weapon :: canBeUsed).toList();
+    }
+
+    public void dropWeapon(Weapon weapon) {
+        weapons.remove(weapon);
     }
 
 }

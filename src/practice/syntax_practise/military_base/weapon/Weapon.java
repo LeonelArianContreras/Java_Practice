@@ -6,29 +6,28 @@ import java.util.ArrayList;
 public abstract class Weapon {
 
     private String name; // Just FF
-    private double damage; // To attack method
+    private double baseDamage; // To attack method
     private double range; // To attack method
 
-    public Weapon(String name, double damage, double range) {
+    public Weapon(String name, double baseDamage, double range) {
         this.name = name;
-        this.damage = damage;
+        this.baseDamage = baseDamage;
         this.range = range;
     }
-    // Getters
+
+    public double getBaseDamage() { return baseDamage; }
+
     public String getName() {
         return name;
-    }
-
-    public double getDamage() {
-        return damage;
     }
 
     public double getRange() {
         return range;
     }
 
-    public abstract void attack(); // Abstract so as to obligate herences to have this method
-    public abstract boolean canAttack();
+    // Abstract so as to obligate herences to have this method
+    public abstract boolean canBeUsed();
+    public abstract double getTotalDamage();
 
 }
 

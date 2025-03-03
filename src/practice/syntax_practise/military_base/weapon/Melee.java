@@ -9,8 +9,8 @@ public class Melee extends Weapon {
         this.setSharpness(sharpness);
     }
 
-    public int getSharpness() {
-        return sharpness;
+    public double getTotalDamage() {
+        return sharpness * this.getBaseDamage() / this.getRange();
     }
 
     private void setSharpness(int sharpness) { // Private due to encapsulation
@@ -25,5 +25,5 @@ public class Melee extends Weapon {
         this.setSharpness(this.sharpness - 1);
     }
 
-    public boolean canAttack() {} // ToDo
+    public boolean canBeUsed() { return sharpness > 0; } // ToDo
 }
