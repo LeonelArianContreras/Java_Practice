@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public abstract class Weapon {
 
-    private String name; // Just FF
-    private double baseDamage; // To attack method
-    private double range; // To attack method
+    protected final String name; // Just FF
+    protected final double baseDamage; // To attack method
+    protected double range; // To attack method
 
     public Weapon(String name, double baseDamage, double range) {
         this.name = name;
@@ -25,7 +25,8 @@ public abstract class Weapon {
         return range;
     }
 
-    // Abstract so as to obligate herences to have this method
+    // Abstract in order to obligate herences to have this method
+    public abstract void useWeapon();
     public abstract boolean canBeUsed();
     public abstract double getTotalDamage();
 

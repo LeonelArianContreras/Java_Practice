@@ -16,6 +16,15 @@ public class Soldier {
     private Rank rank;
     private List<Weapon> weapons;
 
+    public Soldier(String name, double health, boolean alive, int honorStars, Rank rank) {
+        this.name = name;
+        this.health = health;
+        this.alive = alive;
+        this.honorStars = honorStars;
+        this.rank = rank;
+        this.weapons = new ArrayList<>();
+    }
+
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
@@ -51,10 +60,10 @@ public class Soldier {
 
     public void attackTo(Soldier soldier) {
         if(this.canAttackTo(soldier)) {
-            soldier.receiveAttack(soldier);
+            soldier.receiveAttack(this);
         }
         else {
-            soldier.attackTo(this);
+            this.attackTo(soldier);
         }
     }
 
@@ -63,6 +72,7 @@ public class Soldier {
     }
 
     public void receiveAttack(Soldier soldier) {
+        soldier.bestWeapon().useWeapon();
         this.verifyHealth(soldier.maxDamage());
         this.grabStars(soldier.honorStars);
     }

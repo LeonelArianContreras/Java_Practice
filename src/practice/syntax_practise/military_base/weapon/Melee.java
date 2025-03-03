@@ -21,9 +21,9 @@ public class Melee extends Weapon {
         this.setSharpness(this.sharpness + 1);
     }
 
-    public void attack() { // ToDo
+    public void useWeapon() {
         this.setSharpness(this.sharpness - 1);
     }
 
-    public boolean canBeUsed() { return sharpness > 0; } // ToDo
+    public boolean canBeUsed() { return sharpness > 0; }
 }
