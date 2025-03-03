@@ -54,7 +54,7 @@ public class Firearm extends Weapon {
     }
 
     public double getTotalDamage() {
-        return caliber * this.getTotalAim() * this.getTotalFireRate() * this.getBaseDamage() / this.getRange();
+        return caliber * this.getTotalAim() * this.getTotalFireRate() * this.getBaseDamage() / Math.max(1, this.getRange()); // Be careful with arithmetic errors
     }
 
     public int getTotalAim() {

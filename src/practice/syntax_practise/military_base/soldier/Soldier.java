@@ -25,6 +25,10 @@ public class Soldier {
         this.weapons = new ArrayList<>();
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
@@ -59,11 +63,14 @@ public class Soldier {
     }
 
     public void attackTo(Soldier soldier) {
-        if(this.canAttackTo(soldier)) {
-            soldier.receiveAttack(this);
-        }
-        else {
-            this.attackTo(soldier);
+        try {
+            if (this.canAttackTo(soldier)) {
+                soldier.receiveAttack(this);
+            } else {
+                throw new Exception("¡Your Soldier is not strong enough to attack the enemy!");
+            }
+        } catch (Exception invalidAttack) {
+            System.out.println("⚠️ Error: " + invalidAttack.getMessage()); // The progamme continues running but show this message
         }
     }
 
@@ -93,7 +100,8 @@ public class Soldier {
     }
 
     public double maxDamage() {
-        return this.bestWeapon().getTotalDamage();
+        Weapon bestWeapon = this.bestWeapon();
+        return bestWeapon != null ? bestWeapon.getTotalDamage() : 0; // Be careful with null values
     }
 
     public void verifyRankUp(int honorStars) {
